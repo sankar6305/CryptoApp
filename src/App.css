@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
+
+* {
+  margin: 0;
+  /* background: -moz-radial-gradient(center, ellipse cover, #000000 0%, #670d0d 100%); */
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  /* background-image: url('https: //media.bizj.us/view/img/10760498/gettyimages-498398760*1200xx5760-3240-0-300.jpg'); */
+  /* background: black; */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a {
+  text-decoration: none;
+  color: rgb(45, 102, 194);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Border {
+  margin: 10px;
+  padding : 10px;
+  border: 1px solid rgb(177, 13, 177);
+  border-radius: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
+/* .Practice {
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin: 20px;
+  width: 97%;
+  border: 1px solid black;
+  border-radius: 5px;
+} */
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.coinPage {
+  color: black;
 }
