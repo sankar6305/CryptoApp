@@ -10,6 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
+import { Button } from '@mui/material';
+import { useFirebase } from '../Context/Firebase';
 
 
 const columns = [
@@ -21,6 +23,7 @@ const columns = [
   { id: 'high_24h', label: 'High 24h', minWidth: 170 },
   { id: 'market_cap_change_24h', label: 'Market Change in 24 Hours', minWidth: 170 },
   { id: 'Link', label: 'Link', minWidth: 170 },
+  { id: 'Buy', label: 'Buy', minWidth: 170 },
 
 ];
 
@@ -76,7 +79,7 @@ export default function Home() {
   const classes = useStyles();
 
   const [rows, setRows] = useState([]);
-
+  const firebase = useFirebase();
 
   useEffect(() => {
     refreshPage();
@@ -88,10 +91,10 @@ export default function Home() {
     axios.get(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false"
     ).then((response) => {
-      //console.log(response.data);
+      console.log(response.data);
       //setIsLoading(false);
       setRows(response.data);
-      //console.log(coins);
+      console.log(rows);
     });
   };
   const [page, setPage] = React.useState(0);
@@ -106,8 +109,10 @@ export default function Home() {
     setPage(0);
   };
 
-
-
+  const handleBuy = async (id, name, current_price) => {
+    // console.log(row);
+    await firebase.BuyingtheCrypto(id, name, current_price);
+  }
 
   return (
     <>
@@ -135,18 +140,17 @@ export default function Home() {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                      <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align} style={{ color: 'white', backgroundColor: 'black' }}>
                               {column.format && typeof value === 'number' && column.id !== 'Link'
                                 ? column.format(value)
-                                : (column.id === 'Link' ? <a onClick={() => { window.location.href = `/coin/${row.id}` }}>Link to detail</a> : value)}
+                                : (column.id === 'Link' ? <a onClick={() => { window.location.href = `/coin/${row.id}` }}>Link to detail</a> : (column.id === 'Buy' ? <Button onClick={() => handleBuy(row.id, row.name, row.current_price)}>Buy the crypto</Button> :value))}
                             </TableCell>
                           );
                         })},
-                        {/* <a onClick={() => { window.location.href = `/coin/56` }}>Link to detail</a> */}
                       </TableRow>
                     );
                   })}

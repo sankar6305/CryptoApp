@@ -38,12 +38,19 @@ export default function ButtonAppBar() {
           <Typography variant="h3" sx={{ fontStyle: 'italic', flexGrow: 2 }} className={classes.Logo} onClick={handleClick}>
             CryptoMania
           </Typography>
-          <Link to='/Practice'>
-            <Button className={classes.Btn}>Practice</Button>
-          </Link>
-          <Link to='/Signin'>
-            <Button className={classes.Btn}>Sign in | Sign Up</Button>
-          </Link>
+          <div className='HeaderButtons'>
+            <Link to='/trading'>
+              <Button className={classes.Btn}> Trade Here </Button>
+            </Link>
+            <Link to='/Signup'>
+              <Button className={classes.Btn}>Sign Up</Button>
+            </Link>
+            <Link to='/Signin'>
+              <Button className={classes.Btn}>Sign in</Button>
+            </Link>
+          </div>
+          
+
         </Toolbar>
       </AppBar>
     </Box>

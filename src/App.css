@@ -1,12 +1,10 @@
 
 * {
   margin: 0;
-  /* background: -moz-radial-gradient(center, ellipse cover, #000000 0%, #670d0d 100%); */
+
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  /* background-image: url('https: //media.bizj.us/view/img/10760498/gettyimages-498398760*1200xx5760-3240-0-300.jpg'); */
-  /* background: black; */
 }
 
 a {
@@ -21,6 +19,12 @@ a {
   border-radius: 5px;
 }
 
+.HeaderCoin {
+  margin-left: 40%;
+  margin-top: 20px;
+  padding : 5px;
+  color: black;
+}
 
 /* .Practice {
   background-color: #f2f2f2;
@@ -31,6 +35,31 @@ a {
   border-radius: 5px;
 } */
 
-.coinPage {
+.coinPage, .BlackColor {
   color: black;
+}
+
+.Graph {
+  margin-top: 15px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-left: 150px;
+  width: 70%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.Buttons_graph {
+  margin-top: 25px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  padding-left: 325px;
+  margin-left: 150px;
+  width: 70%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.HeaderButtons {
+  padding-right: 10px;
 }
