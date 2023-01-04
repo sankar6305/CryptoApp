@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, addDoc, collection } from 'firebase/firestore';
+import {
+    getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 //Creating Context api with default value as null
 const FirebaseContext = createContext(null)
@@ -77,13 +78,26 @@ export const FirebaseProvider = (props) => {
 
     //Adding user to firestore
 
+    const GetCrypto = () => {
+        const q = query(collection(firestore, "Trades"), where("user_email", "==", user.email));
+        //console.log(q);
+        getDocs(q).then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc.data());
+            });
+        });
+    }
+
+    // console.log(user);
     const BuyingtheCrypto = async (id, name, price) => {
         try {
             const docRef = await addDoc(collection(firestore, "Trades"), {
                 uid: id,
                 name: name,
                 price: price,
-                BuyAt : new Date(),
+                BuyAt: new Date(),
+                user_id: user.uid,
+                user_email: user.email
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (error) {
@@ -92,11 +106,12 @@ export const FirebaseProvider = (props) => {
     }
 
 
+
     
     
     const isLoggedIn = user ? true : false;
     return (
-        <FirebaseContext.Provider value={{ SingUpUserWithEmailAndPassword, SignUpWithGoogle, isLoggedIn, SingInWithUserEmail, BuyingtheCrypto }}>
+        <FirebaseContext.Provider value={{ SingUpUserWithEmailAndPassword, SignUpWithGoogle, isLoggedIn, SingInWithUserEmail, BuyingtheCrypto, GetCrypto }}>
             {props.children}
         </FirebaseContext.Provider>
     )

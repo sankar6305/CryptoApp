@@ -15,7 +15,6 @@ import { useFirebase } from '../Context/Firebase';
 
 
 const columns = [
-  { id: 'id', label: 'ID', minWidth: 170 },
   { id: 'name', label: 'Name', minWidth: 170 },
   { id: 'market_cap_rank', label: 'Rank', minWidth: 170 },
   { id: 'current_price', label: 'Current Price', minWidth: 170 },
@@ -88,6 +87,7 @@ export default function Home() {
 
   const refreshPage = () => {
     //setIsLoading(true);
+    // int a = 2;
     axios.get(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false"
     ).then((response) => {
@@ -147,7 +147,7 @@ export default function Home() {
                             <TableCell key={column.id} align={column.align} style={{ color: 'white', backgroundColor: 'black' }}>
                               {column.format && typeof value === 'number' && column.id !== 'Link'
                                 ? column.format(value)
-                                : (column.id === 'Link' ? <a onClick={() => { window.location.href = `/coin/${row.id}` }}>Link to detail</a> : (column.id === 'Buy' ? <Button onClick={() => handleBuy(row.id, row.name, row.current_price)}>Buy the crypto</Button> :value))}
+                                : (column.id === 'Link' ? <a onClick={() => { window.location.href = `/coin/${row.id}` }}>Link to detail</a> : (column.id === 'Buy' ? <Button onClick={() => handleBuy(row.id, row.name, row.current_price)}>Buy the crypto</Button> : value))}
                             </TableCell>
                           );
                         })},
@@ -158,7 +158,7 @@ export default function Home() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 20, 25, 50, 250]}
+            rowsPerPageOptions={[10, 20, 25]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}

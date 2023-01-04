@@ -6,6 +6,7 @@ import Home from './Pages/Home';
 import './App.css';
 import SignInPage from './Pages/SignInPage';
 import SingUpPage from './Pages/SingUpPage';
+import TradePage from './Pages/TradePage';
 
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
         <Header />
         <div>
         <Routes>
-          <Route path="/trading" element={<h1>Trading Here</h1>} />
+          <Route path="/trading" element={<TradePage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SingUpPage />} />
           <Route path="/" element={<Home />} />
