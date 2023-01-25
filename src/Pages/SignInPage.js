@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
 
 import { useFirebase } from "../Context/Firebase";
 
@@ -22,8 +23,14 @@ function SignInPage() {
     const SinInFunction = async (e) => {
         e.preventDefault();
         console.log("SingIn calling");
-        await firebase.SingInWithUserEmail(email, password);
-        console.log("SingIn Function Called");
+        await firebase.SingInWithUserEmail(email, password).then((res) => {
+            alert("Login Successfull");
+            window.location.href = "/";
+        }
+        ).catch((err) => {
+            alert("Invalid Password or Email");
+        });
+        
     }
 
     //SingIn Function with Google
@@ -31,21 +38,24 @@ function SignInPage() {
         e.preventDefault();
         console.log("Google SingUp calling");
         await firebase.SignUpWithGoogle();
+        alert("Login Successfull");
+        window.location.href = "/";
         console.log("Google SingUp Function Called");
     }
 
     //actual return
-    return (<div style={{ margin: "45px", color:"black" }}>
+    return (<div className='LoginDiv'>
         <h1>SinIn Here</h1>
-        <form onSubmit={SinInFunction}>
-            <label>Username :  </label>
+        <form onSubmit={SinInFunction} className='Form'>
+            <label>Username  </label>
             <input onChange={(e) => setEmail(e.target.value)} value={email} type="text" placeholder="username" name="username"></input> <br></br>
-            <label>Password  :  </label>
+            <label>Password   </label>
             <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="password" name="password"></input> <br></br>
-            <button type="submit" >SinIn</button>
+            <Button type="submit" >Sign In</Button>
+            <h4>or</h4>
+            <Button onClick={GooggleSingIn}>SingIn with Google</Button>
         </form>
-        <h4>or</h4>
-        <button onClick={GooggleSingIn}>SingIn with Google</button>
+
     </div>)
 }
 

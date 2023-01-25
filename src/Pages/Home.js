@@ -81,22 +81,10 @@ export default function Home() {
   const firebase = useFirebase();
 
   useEffect(() => {
-    refreshPage();
-  }, []);
+    setRows(firebase.drt);
+  }, [firebase.drt]);
 
 
-  const refreshPage = () => {
-    //setIsLoading(true);
-    // int a = 2;
-    axios.get(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false"
-    ).then((response) => {
-      console.log(response.data);
-      //setIsLoading(false);
-      setRows(response.data);
-      console.log(rows);
-    });
-  };
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(20);
 
@@ -109,9 +97,13 @@ export default function Home() {
     setPage(0);
   };
 
-  const handleBuy = async (id, name, current_price) => {
+  const handleBuy = async (id, name, current_price, index) => {
     // console.log(row);
-    await firebase.BuyingtheCrypto(id, name, current_price);
+    await firebase.BuyingtheCrypto(id, name, current_price, index).then((name1) => {
+      alert("You Bought the Crypto " + name);
+    }).catch((error) => {
+      alert(error);
+    });
   }
 
   return (
@@ -127,7 +119,7 @@ export default function Home() {
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      style={{ minWidth: column.minWidth, color: 'white', fontWeight: 100, backgroundColor: '#76ff03' }}
+                      style={{ minWidth: column.minWidth, color: 'white', fontWeight: 100, backgroundColor: '#005EFF' }}
                     >
                       {column.label}
                     </TableCell>
@@ -138,16 +130,16 @@ export default function Home() {
               <TableBody>
                 {rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
+                  .map((row, index) => {
                     return (
                       <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
-                            <TableCell key={column.id} align={column.align} style={{ color: 'white', backgroundColor: 'black' }}>
+                            <TableCell key={column.id} align={column.align} >
                               {column.format && typeof value === 'number' && column.id !== 'Link'
                                 ? column.format(value)
-                                : (column.id === 'Link' ? <a onClick={() => { window.location.href = `/coin/${row.id}` }}>Link to detail</a> : (column.id === 'Buy' ? <Button onClick={() => handleBuy(row.id, row.name, row.current_price)}>Buy the crypto</Button> : value))}
+                                : (column.id === 'Link' ? <a onClick={() => { window.location.href = `/coin/${row.id}` }}>Link to detail</a> : (column.id === 'Buy' ? <Button onClick={() => handleBuy(row.id, row.name, row.current_price, index)}>Buy the crypto</Button> : value))}
                             </TableCell>
                           );
                         })},

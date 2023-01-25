@@ -1,58 +1,17 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
-import { Link } from 'react-router-dom';
+import React from 'react'
 
-const useStyles = makeStyles({
-  root: {
-    fontWeight: 1500,
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  },
-  Btn: {
-    background: 'linear-gradient(90deg, #c62828 30%, #4a148c 90%)',
-    fontWeight: 50,
-  },
-  Logo: {
-    fontFamily: ['Libre Baskerville', 'serif'].join(','),
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    fontWeight: 550,
-  },
-});
-
-export default function ButtonAppBar() {
-  const classes = useStyles();
-
-  const handleClick = () => {
-    window.location.href = '/';
-    // console.log('clicked');
-  };
-
+const Header = () => {
   return (
-    <Box>
-      <AppBar position="static">
-        <Toolbar className={classes.root}>
-          <Typography variant="h3" sx={{ fontStyle: 'italic', flexGrow: 2 }} className={classes.Logo} onClick={handleClick}>
-            CryptoMania
-          </Typography>
-          <div className='HeaderButtons'>
-            <Link to='/trading'>
-              <Button className={classes.Btn}> Trade Here </Button>
-            </Link>
-            <Link to='/Signup'>
-              <Button className={classes.Btn}>Sign Up</Button>
-            </Link>
-            <Link to='/Signin'>
-              <Button className={classes.Btn}>Sign in</Button>
-            </Link>
-          </div>
-          
+    <header className='HeaderTable'>
+      <h1 className="p-2 flex-grow-1"><a href='/'>CRYPTOMANIA</a></h1>
 
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
+      <ul className='Links'>
+        <li className="p-2 flex-grow-1"><a href="/trading">Trade Here</a></li>
+        <li className="p-2"><a href="/signin">Sign In</a></li>
+        <li className="p-2"><a href="/signup">Sign Up</a></li>
+      </ul>
+    </header>
+  )
 }
+
+export default Header

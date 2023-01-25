@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
 
@@ -14,15 +13,13 @@ a {
 
 .Border {
   margin: 10px;
-  padding : 10px;
-  border: 1px solid rgb(177, 13, 177);
-  border-radius: 5px;
+  padding: 10px;
 }
 
 .HeaderCoin {
   margin-left: 40%;
   margin-top: 20px;
-  padding : 5px;
+  padding: 5px;
   color: black;
 }
 
@@ -35,13 +32,13 @@ a {
   border-radius: 5px;
 } */
 
-.coinPage, .BlackColor {
+.coinPage,
+.BlackColor {
   color: black;
 }
 
 .Graph {
   margin-top: 15px;
-  background-color: #f2f2f2;
   padding: 20px;
   margin-left: 150px;
   width: 70%;
@@ -53,7 +50,7 @@ a {
   margin-top: 25px;
   background-color: #f2f2f2;
   padding: 10px;
-  padding-left: 325px;
+  padding-left: 17%;
   margin-left: 150px;
   width: 70%;
   border: 1px solid black;
@@ -62,4 +59,158 @@ a {
 
 .HeaderButtons {
   padding-right: 10px;
+}
+
+* {
+  margin: 10px;
+}
+
+.HeaderTable {
+  /* background-color: #000000;
+    color: #FFFFFF; */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  /* font-weight: bold; */
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.HeaderTable a:link {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+.Links {
+  margin-left: 200px;
+  display: inline-flex;
+  justify-content: space-around;
+}
+
+li {
+  margin: 0 10px;
+}
+
+.LoginDiv {
+  margin-left: 100px;
+  margin-top: 10px;
+  padding: 5px;
+  color: black;
+  align-items: center;
+  margin-left: 30%;
+  margin-right: 40%;
+  margin-top: 7%;
+  border: 2px solid rgb(0, 94, 255);
+  border-radius: 5px;
+  padding: 5em;
+  box-shadow: 5px 5px 1px 1px rgb(0, 94, 255);
+}
+
+.LoginDiv input,
+.LoginDiv button {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid rgb(0, 94, 255);
+  border-radius: 5px;
+}
+
+.LoginDiv input {
+  width: 100%;
+}
+
+.LoginDiv button {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid rgb(0, 94, 255);
+  border-radius: 5px;
+  background-color: rgb(0, 94, 255);
+
+  color: rgb(7, 6, 6);
+}
+
+/* rgb(62, 213, 215) */
+
+.Form {
+  padding: 10px;
+  border: 1px solid rgb(0, 94, 255);
+  box-shadow: 5px 5px 2px 2px rgb(0, 94, 255);
+  border-radius: 5px;
+}
+
+.LoginDiv:hover,
+.Form:hover,
+.LoginDiv button:hover {
+  /* background-color: rgb(0, 94, 255);
+  color: rgb(7, 6, 6); */
+  box-shadow: 5px 5px 1px 1px rgb(143, 150, 165);
+  border: 2px solid rgb(120, 126, 138);
+}
+
+.LoginDiv h1 {
+  text-align: center;
+  text-shadow: 2px;
+  color: rgb(0, 94, 255);
+}
+
+.Trading_Page {
+  color: black;
+  margin-top: 15px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-left: 60px;
+  width: 90%;
+  border: 1px solid rgb(0, 94, 255);
+  box-shadow: 5px 5px rgb(0, 74, 255);
+  border-radius: 5px;
+}
+
+.Cards {
+  display: inline;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.TradeCarsButtons button {
+  background-color: rgb(31, 99, 227);
+  border-radius: 10px;
+  color: white;
+}
+
+.TradeCarsButtons button:hover {
+  color: black;
+  background-color: rgb(0, 94, 255);
+  box-shadow: 2px 2px rgb(0, 94, 255);
+}
+
+.Cards:hover {
+  box-shadow: 5px 5px 1px 1px rgb(0, 94, 255);
+  border: 2px solid rgb(0, 94, 255);
+  transition: 0.3s;
+}
+
+.CoinPage {
+  color: black;
+}
+
+.Content{
+  margin-left: 35%;
+  margin-right: 45%;
+  float: left;
+}
+
+.Description {
+  margin-top: 15px;
+  padding: 20px;
+  margin-left: 100px;
+  width: 80%;
+  border: 1px solid rgb(0, 94, 255);
+  box-shadow: 5px 5px rgb(0, 74, 255);
+  border-radius: 5px;
 }

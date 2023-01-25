@@ -7,7 +7,9 @@ import { Line } from 'react-chartjs-2';
 import { CircularProgress } from '@mui/material';
 import Chart from 'chart.js/auto';
 
-import {Button} from '@mui/material'
+import { Button } from '@mui/material';
+import { Typography } from '@mui/material';
+import ReactHtmlParser from "react-html-parser";
 
 
 
@@ -18,26 +20,36 @@ const chartDays = [
     value: 1,
   },
   {
-    label: "30 Days",
-    value: 30,
+    label: "7 Days",
+    value: 7,
   },
   {
-    label: "3 Months",
-    value: 90,
+    label: "15 Days",
+    value: 15,
+  },
+  {
+    label: "30 Months",
+    value: 30,
   },
   {
     label: "1 Year",
     value: 365,
   },
+  {
+    label: "2 Year",
+    value: 730,
+  },
 ];
 
-const currency = "usd";
+const currency = "rupees";
 
 
 const CoinPgae = () => {
 
   const coin = useParams();
+  const [Image, setImage] = useState("");
   const id = coin.coinId;
+  const [Desc, setDisc] = useState("");
 
   const [historicData, setHistoricData] = useState([]);
   const [days, setDays] = useState(1);
@@ -48,7 +60,7 @@ const CoinPgae = () => {
 
     //console.log(id);
     await axios.get(
-      `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`
+      `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=inr&days=${days}`
     ).then((res) => {
       console.log(id);
       setHistoricData(res.data.prices);
@@ -56,6 +68,17 @@ const CoinPgae = () => {
       console.log(historicData);
     }).catch((err) => {
       console.log(err);
+    });
+
+    await axios.get(
+      `https://api.coingecko.com/api/v3/coins/${id}`
+    ).then((res) => {
+      console.log("Name of the coin");
+      console.log(res.data.description.en);
+      setDisc(res.data.description.en);
+      setImage(res.data.image.large);
+    }).catch((err) => {
+      console.log("Error occured");
     });
   };
 
@@ -73,67 +96,82 @@ const CoinPgae = () => {
 
 
   return (
-    <div>
-      <div className='HeaderCoin'>
-        <h1>{CoinName.toLocaleUpperCase()}</h1>
-      </div>
-      <div className='Buttons_graph'>
-      <Button onClick={() => setDays(1)}>In a Day</Button>
-      <Button onClick={() => setDays(30)}>In a 30 days</Button>
-      <Button onClick={() => setDays(90)}>In a 90 Days</Button>
-      <Button onClick={() => setDays(365)}>In a Year</Button>
-      </div>
-      <div className='Graph'>
-        {!historicData ? (
-          <CircularProgress
-            style={{ color: "gold" }}
-            size={250}
-            thickness={1}
-          />
-        ) : (
-          <>
-            <Line
-              data={{
-                labels: historicData.map((coin) => {
-                  let date = new Date(coin[0]);
-                  let time =
-                    date.getHours() > 12
-                      ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                      : `${date.getHours()}:${date.getMinutes()} AM`;
-                  return days === 1 ? time : date.toLocaleDateString();
-                }),
-
-                datasets: [
-                  {
-                    data: historicData.map((coin) => coin[1]),
-                    label: `Price ( Past ${days} Days ) in ${currency}`,
-                    borderColor: "#EEBC1D",
-                  },
-                ],
-              }}
-              options={{
-                elements: {
-                  point: {
-                    radius: 1,
-                  },
-                },
-              }}
-
+    <div className='CoinPage'>
+      <div className='GraphCoin'>
+        <div className='ApplyFlex'>
+        <div className='HeaderCoin'>
+          <h1>{CoinName.toLocaleUpperCase()}</h1>
+        </div>
+        <div className='Content'>
+          {/* Take the image from Desc.image.thumb */}
+          <img src={Image} alt="Coin" />
+        </div>
+        </div>
+        <div className='Description'>
+          <h1>Description</h1>
+          <Typography variant="subtitle1" className="description">
+            {ReactHtmlParser(Desc?.split(". "))}.
+          </Typography>
+        </div>
+        <div className='Buttons_graph'>
+          <Button onClick={() => setDays(1)}>In a Day</Button>
+          <Button onClick={() => setDays(7)}>In a 7 days</Button>
+          <Button onClick={() => setDays(15)}>In a 15 days</Button>
+          <Button onClick={() => setDays(30)}>In a 30 Days</Button>
+          <Button onClick={() => setDays(365)}>In a Year</Button>
+          <Button onClick={() => setDays(730)}>In a 2 Years</Button>
+        </div>
+        <div className='Graph'>
+          {!historicData ? (
+            <CircularProgress
+              style={{ color: "gold" }}
+              size={250}
+              thickness={1}
             />
-            <div
-              style={{
-                display: "flex",
-                marginTop: 20,
-                justifyContent: "space-around",
-                width: "100%",
-              }}
-            >
+          ) : (
+            <>
+              <Line
+                data={{
+                  labels: historicData.map((coin) => {
+                    let date = new Date(coin[0]);
+                    let time =
+                      date.getHours() > 12
+                        ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                        : `${date.getHours()}:${date.getMinutes()} AM`;
+                    return days === 1 ? time : date.toLocaleDateString();
+                  }),
 
-            </div>
-          </>
-        )}
+                  datasets: [
+                    {
+                      data: historicData.map((coin) => coin[1]),
+                      label: `Price ( Past ${days} Days ) in ${currency}`,
+                      borderColor: "#EEBC1D",
+                    },
+                  ],
+                }}
+                options={{
+                  elements: {
+                    point: {
+                      radius: 1,
+                    },
+                  },
+                }}
+
+              />
+              <div
+                style={{
+                  display: "flex",
+                  marginTop: 20,
+                  justifyContent: "space-around",
+                  width: "100%",
+                }}
+              >
+
+              </div>
+            </>
+          )}
+        </div>
       </div>
-      
     </div>
   )
 }
