@@ -14,6 +14,8 @@ const TradePage = () => {
   const [crypto, setCrypto] = useState([]);
   const firebase = useFirebase();
   const [flag, setFlag] = useState(false);
+  const [flag1, setFlag1] = useState(false);
+  const [prices, setPrices] = useState([]);
   const HandleOutput = async () => {
     if (firebase.isLoggedIn) {
       await firebase.GetCrypto().then((querySnapshot) => {
@@ -35,18 +37,28 @@ const TradePage = () => {
   }
 
   const [rows, setRow] = useState([]);
+  
 
   useEffect(() => {
     console.log(firebase.isLoggedIn);
     HandleOutput();
     setRow(firebase.drt);
+    if (crypto.length > 0 && rows.length > 0) {
+      for (let i = 0; i < crypto.length; i++) {
+        let t = rows.find((element) => {
+          return element.id === crypto[i].uid;
+        }).current_price;
+        console.log("Hello Bhageeta " + t);
+        prices.push(t);
+      }
+      setPrices(prices);
+      setFlag1(true);
+      console.log(prices);
+    }
+    //console.log(Prices);
 
-  }, [flag, crypto, firebase.isLoggedIn, rows]);
 
-  const RemovingFromDataBase = async (item) => {
-    console.log(item);
-    //setFlag(false);
-  }
+  }, [firebase.isLoggedIn, flag, flag1]);
 
 
 
@@ -71,6 +83,7 @@ const TradePage = () => {
           alignItems="flex-start"
         >
           {crypto.length > 0 && rows.length > 0 ? crypto.map((item, index1) => {
+
             return (
               <div className='Cards'>
                 <Grid item key={data[index1 % 5]}>
@@ -85,22 +98,22 @@ const TradePage = () => {
                         <a onClick={() => { window.location.href = `/coin/${item.uid}` }}>{item.name}</a>
                       </Typography>
                       <Typography variant="body3" color="#4615b2">
-                        <h3><u>Current Price:</u> {rows[item.ind].current_price}₹</h3>
+                        <h3><u>Current Price:</u> {prices[index1]}₹</h3>
                         <h3><u>Old Price: </u> {item.price}₹</h3>
                         <h3><u>Buy At:</u> {item.BuyAt}</h3>
-                        <h3 style={{ display: "inline-block" }}><u>Profit Percentage:  </u><h3 style={{ color: (rows[item.ind].current_price - item.price) / item.price > 0 ? "green" : "red" }}> {((rows[item.ind].current_price - item.price) / item.price).toFixed(6)} %</h3></h3>
-                        <h3><u>Profit / Loss: </u><h3 style={{ color: (rows[item.ind].current_price - item.price) / item.price > 0 ? "green" : "red" }}>{(rows[item.ind].current_price - item.price).toFixed(6)} ₹</h3></h3>
+                        <h3 style={{ display: "inline-block" }}><u>Profit Percentage:  </u><h3 style={{ color: (prices[index1] - item.price) / item.price > 0 ? "green" : "red" }}> {((prices[index1] - item.price) / item.price).toFixed(6)} %</h3></h3>
+                        <h3><u>Profit / Loss: </u><h3 style={{ color: (prices[index1] - item.price) / item.price > 0 ? "green" : "red" }}>{(prices[index1] - item.price).toFixed(6)} ₹</h3></h3>
                       </Typography>
                     </CardContent>
                     <div className='TradeCarsButtons'>
                       <CardActions>
-                        <Button onClick={() => { 
+                        <Button onClick={() => {
                           firebase.RemoveCrypto(item.BuyAt, item.uid).then(() => {
                             // window.location.reload();
                             setFlag(false);
                             alert(item.name + " Removed");
                           });
-                         }}>Remove</Button>
+                        }}>Remove</Button>
                         <Button onClick={() => { window.location.href = `/coin/${item.uid}` }}>Learn More</Button>
                       </CardActions>
                     </div>
@@ -110,7 +123,7 @@ const TradePage = () => {
               </div>
 
             )
-          }) : <h3>Loding....</h3>
+          }) : <h3>Buy First....</h3>
           }
         </Grid>
       </div>
