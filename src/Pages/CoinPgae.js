@@ -56,6 +56,7 @@ const CoinPgae = () => {
   const [flag, setFlag] = useState(false);
   const [Detail, setDetail] = useState([]);
 
+
   const fetchHistoricData = async () => {
 
 
@@ -82,6 +83,15 @@ const CoinPgae = () => {
       Detail.push(res.data.market_data.current_price.inr);
       Detail.push(res.data.market_data.market_cap.inr);
       Detail.push(res.data.name);
+      //Trading Links
+      Detail.push(res.data.tickers[2].trade_url);
+      Detail.push(res.data.tickers[0].trust_score);
+      Detail.push(res.data.market_data.market_cap_change_percentage_24h_in_currency.inr);
+      Detail.push(res.data.genesis_date);
+      Detail.push(res.data.sentiment_votes_up_percentage);
+      Detail.push(res.data.sentiment_votes_down_percentage);
+      Detail.push(res.data.public_interest_score);
+      Detail.push(res.data.links.homepage[0]);
       setDetail(Detail);
       console.log(Detail);
     }).catch((err) => {
@@ -137,6 +147,54 @@ const CoinPgae = () => {
             <Typography variant="subtitle1" className="detail">
               <span className="detail__name">Market Cap</span>
               <span className="detail__value">{Detail.length > 0 ? Detail[2] : "..."}</span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">Trading Links</span>
+              <span className="detail__value"> <a href={Detail.length > 0 ? Detail[4] : "..."}> Link </a></span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">Official site</span>
+              <span className="detail__value"> <a href={Detail.length > 0 ? Detail[11] : "..."}> Link </a></span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">Trust Score</span>
+              <span className="detail__value"> <span style={{ color: (Detail[5] == "green" ? "green" : "red") }}>{Detail.length > 0 ? Detail[5] : "..."}</span></span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">Price Change Percente in 24 hours</span>
+              <span className="detail__value">{Detail.length > 0 ? Detail[6] : "..."}</span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">genesis date</span>
+              <span className="detail__value">{Detail.length > 0 ? Detail[7] : "..."}</span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">sentiment votes up percentage</span>
+              <span className="detail__value">{Detail.length > 0 ? Detail[8] : "..."}</span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">sentiment votes down percentage</span>
+              <span className="detail__value">{Detail.length > 0 ? Detail[9] : "..."}</span>
+            </Typography>
+          </div>
+          <div className='Detail'>
+            <Typography variant="subtitle1" className="detail">
+              <span className="detail__name">public interest score</span>
+              <span className="detail__value">{Detail.length > 0 ? Detail[10] : "..."}</span>
             </Typography>
           </div>
         </div>

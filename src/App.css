@@ -276,3 +276,22 @@ li {
   border: 1px solid rgb(0, 94, 255);
   border-radius: 5px;
 }
+
+.Detail {
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid rgb(0, 94, 255);
+  border-radius: 5px;
+  box-shadow: 5px 5px 1px 1px rgb(0, 94, 255);
+}
+
+.Detail:hover {
+  box-shadow: 5px 5px 1px 1px rgb(107, 115, 129);
+  transition: 0.3s;
+}
+
+.detail__name {
+  font-size: 12px;
+}
