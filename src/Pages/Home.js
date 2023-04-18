@@ -26,6 +26,8 @@ const columns = [
 
 ];
 
+let vt = 0;
+
 // function createData(name, code, population, size) {
 //   const density = population / size;
 //   return { id, market_cap_rank, name, image, current_Price, low_24h, high_24h};
@@ -74,15 +76,17 @@ const useStyles = makeStyles({
 
 
 export default function Home() {
-
+  let flaag = false;
   const classes = useStyles();
 
   const [rows, setRows] = useState([]);
   const firebase = useFirebase();
+  const [data1, setData1] = useState([]);
 
   useEffect(() => {
     setRows(firebase.drt);
-  }, [firebase.drt]);
+    flaag = false;
+  }, [firebase.drt, data1]);
 
 
   const [page, setPage] = React.useState(0);
@@ -98,6 +102,10 @@ export default function Home() {
   };
 
   const handleBuy = async (id, name, current_price, index) => {
+    if (firebase.isLoggedIn === false) {
+      alert("Please Login First");
+      return;
+    }
     // console.log(row);
     await firebase.BuyingtheCrypto(id, name, current_price, index).then((name1) => {
       alert("You Bought the Crypto " + name);
@@ -120,6 +128,11 @@ export default function Home() {
                       key={column.id}
                       align={column.align}
                       style={{ minWidth: column.minWidth, color: 'white', fontWeight: 100, backgroundColor: '#005EFF' }}
+                      onClick={() => {
+                        firebase.SortingData(column.id);
+                        setData1(vt + 1);
+                        vt++;
+                      }}
                     >
                       {column.label}
                     </TableCell>

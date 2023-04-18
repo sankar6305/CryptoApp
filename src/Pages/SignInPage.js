@@ -30,7 +30,7 @@ function SignInPage() {
         ).catch((err) => {
             alert("Invalid Password or Email");
         });
-        
+
     }
 
     //SingIn Function with Google
@@ -45,7 +45,7 @@ function SignInPage() {
 
     //actual return
     return (<div className='LoginDiv'>
-        <h1>SinIn Here</h1>
+        <h1>SignIn Here</h1>
         <form onSubmit={SinInFunction} className='Form'>
             <label>Username  </label>
             <input onChange={(e) => setEmail(e.target.value)} value={email} type="text" placeholder="username" name="username"></input> <br></br>

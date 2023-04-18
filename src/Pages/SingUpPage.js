@@ -11,9 +11,6 @@ const SingUpPage = () => {
     //Already Login or not
     useEffect(() => {
         console.log("SingUp Page");
-        // if(firebase.isLoggedIn){
-        //     window.location.href = "/";
-        // }
     }, [firebase]);
 
 

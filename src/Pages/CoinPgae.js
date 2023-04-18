@@ -201,11 +201,13 @@ const CoinPgae = () => {
 
         <div className='Buttons_graph'>
           <Button onClick={() => setDays(1)}>In a Day</Button>
-          <Button onClick={() => setDays(7)}>In a 7 days</Button>
-          <Button onClick={() => setDays(15)}>In a 15 days</Button>
-          <Button onClick={() => setDays(30)}>In a 30 Days</Button>
+          <Button onClick={() => setDays(7)}>In 7 days</Button>
+          <Button onClick={() => setDays(15)}>In 15 days</Button>
+          <Button onClick={() => setDays(30)}>In 30 Days</Button>
+          <Button onClick={() => setDays(90)}>In 3 Months</Button>
+          <Button onClick={() => setDays(120)}>In 6 months</Button>
           <Button onClick={() => setDays(365)}>In a Year</Button>
-          <Button onClick={() => setDays(730)}>In a 2 Years</Button>
+          <Button onClick={() => setDays(730)}>In 2 Years</Button>
         </div>
         <div className='Graph'>
           {!historicData ? (

@@ -33,6 +33,14 @@ const firestore = getFirestore(firebaseapp);
 export const FirebaseProvider = (props) => {
     const [user, setUser] = useState(null);
     const [rows, setRows] = useState([]);
+    const count = {
+        name: 0,
+        market_cap_rank: 0,
+        current_price: 0,
+        low_24h: 0,
+        high_24h: 0,
+        market_cap_change_24h: 0,
+    }
 
     const refreshPage = () => {
         //setIsLoading(true);
@@ -118,12 +126,49 @@ export const FirebaseProvider = (props) => {
         );
     }
 
+    const SortingData = (column) => {
+        console.log(column);
+        if (column == "Link" || column == "Buy") column = "market_cap_rank";
+        console.log(column);
+        console.log(count[column]);
+        if (count[column] % 2 == 0) {
+            drt.sort((a, b) => {
+                if (a[column] > b[column]) {
+                    return -1;
+                }
+                if (a[column] < b[column]) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+        else {
+            drt.sort((a, b) => {
+                if (a[column] > b[column]) {
+                    return 1;
+                }
+                if (a[column] < b[column]) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+        count[column] += 1;
+
+        // let rty = drt;
+        // setRows(rty);
+        // drt = rty;
+        console.log(drt);
+    }
+
 
 
     const isLoggedIn = user ? true : false;
-    const drt = rows;
+    let drt = rows;
+    //const isDataisthere = drt ? isDsts : false;
+
     return (
-        <FirebaseContext.Provider value={{ RemoveCrypto, SingUpUserWithEmailAndPassword, drt, SignUpWithGoogle, isLoggedIn, SingInWithUserEmail, BuyingtheCrypto, GetCrypto }}>
+        <FirebaseContext.Provider value={{ RemoveCrypto, SingUpUserWithEmailAndPassword, drt, SortingData, SignUpWithGoogle, isLoggedIn, SingInWithUserEmail, BuyingtheCrypto, GetCrypto }}>
             {props.children}
         </FirebaseContext.Provider>
     )
