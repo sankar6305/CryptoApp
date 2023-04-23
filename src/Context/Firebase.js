@@ -128,7 +128,7 @@ export const FirebaseProvider = (props) => {
 
     const SortingData = (column) => {
         console.log(column);
-        if (column == "Link" || column == "Buy") column = "market_cap_rank";
+        if (column == "Link" || column == "Buy") return;
         console.log(column);
         console.log(count[column]);
         if (count[column] % 2 == 0) {

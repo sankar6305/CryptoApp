@@ -16,6 +16,7 @@ const TradePage = () => {
   const [flag, setFlag] = useState(false);
   const [flag1, setFlag1] = useState(false);
   const [prices, setPrices] = useState([]);
+  const [images, setImages] = useState([]);
   const HandleOutput = async () => {
     if (firebase.isLoggedIn) {
       await firebase.GetCrypto().then((querySnapshot) => {
@@ -30,7 +31,7 @@ const TradePage = () => {
 
         if (crypto.length > 0) {
           setFlag(true);
-          //console.log(crypto);
+          console.log(crypto);
         }
       });
     }
@@ -48,9 +49,15 @@ const TradePage = () => {
         let t = rows.find((element) => {
           return element.id === crypto[i].uid;
         }).current_price;
+        let t1 = rows.find((element) => {
+          return element.id === crypto[i].uid;
+        }).image;
         console.log("Hello Bhageeta " + t);
+        console.log("Hello Bhageeta " + t1);
+        images.push(t1);
         prices.push(t);
       }
+      console.log(prices);
       setPrices(prices);
       setFlag1(true);
       console.log(prices);
@@ -90,7 +97,7 @@ const TradePage = () => {
                   <Card sx={{ maxWidth: 350 }}>
                     <CardMedia
                       sx={{ height: 170 }}
-                      image={rows[item.ind].image}
+                      image={images[index1]}
                       title="green iguana"
                     />
                     <CardContent>

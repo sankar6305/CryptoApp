@@ -164,7 +164,7 @@ const CoinPgae = () => {
           <div className='Detail'>
             <Typography variant="subtitle1" className="detail">
               <span className="detail__name">Trust Score</span>
-              <span className="detail__value"> <span style={{ color: (Detail[5] == "green" ? "green" : "red") }}>{Detail.length > 0 ? Detail[5] : "..."}</span></span>
+              <span className="detail__value"> <span style={{ color: (Detail[5] == "green" ? "green" : "red"), fontWeight: 'bold' }}>{Detail.length > 0 ? (Detail[5] == 'green' ? "green" : "red") : "..."}</span></span>
             </Typography>
           </div>
           <div className='Detail'>
