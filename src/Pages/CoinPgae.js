@@ -105,7 +105,7 @@ const CoinPgae = () => {
 
   useEffect(() => {
     fetchHistoricData();
-
+    console.log(id);
     setCoinName(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag, days]);

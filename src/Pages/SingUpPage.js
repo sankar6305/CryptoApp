@@ -49,7 +49,7 @@ const SingUpPage = () => {
             <input onChange={(e) => setEmail(e.target.value)} value={email} type="text" placeholder="username" name="username"></input> <br></br>
             <label>Password  </label>
             <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="password" name="password"></input> <br></br>
-            <Button type="submit" >SinUp</Button>
+            <Button type="submit" >SignUp</Button>
             <h4>or</h4>
             <Button onClick={GooggleSingUp}>Singup with Google</Button>
         </form>

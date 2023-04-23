@@ -16,11 +16,11 @@ import { useFirebase } from '../Context/Firebase';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'market_cap_rank', label: 'Rank', minWidth: 170 },
-  { id: 'current_price', label: 'Current Price', minWidth: 170 },
-  { id: 'low_24h', label: 'Low 24h', minWidth: 170 },
-  { id: 'high_24h', label: 'High 24h', minWidth: 170 },
-  { id: 'market_cap_change_24h', label: 'Market Change in 24 Hours', minWidth: 170 },
+  { id: 'rank', label: 'Rank', minWidth: 170 },
+  { id: 'price', label: 'Current Price', minWidth: 170 },
+  { id: 'priceChange1h', label: 'price Change in 1h', minWidth: 170 },
+  { id: 'priceChange1d', label: 'Price Change in 1day', minWidth: 170 },
+  { id: 'priceChange1w', label: 'Price Change in 1day', minWidth: 170 },
   { id: 'Link', label: 'Link', minWidth: 170 },
   { id: 'Buy', label: 'Buy', minWidth: 170 },
 
@@ -85,6 +85,7 @@ export default function Home() {
 
   useEffect(() => {
     setRows(firebase.drt);
+    console.log(firebase.drt);
     flaag = false;
   }, [firebase.drt, data1]);
 
@@ -114,6 +115,38 @@ export default function Home() {
     });
   }
 
+  const handleLink = async (id) => {
+    let r = "";
+    for (let i = 0; i < id.length; i++) {
+      if (id[i] >= 'a' && id[i] <= 'z') {
+        r += id[i];
+      }
+    }
+    try {
+      await axios.get(`https://api.coingecko.com/api/v3/coins/${r}`).then((res) => {
+        //window.location.href = `/coin/${r}`;
+        window.open(`/coin/${r}`, '_blank');
+      });
+    } catch (error) {
+      //
+      try {
+        await axios.get(`https://api.coingecko.com/api/v3/coins/${id}`).then((res) => {
+          //window.location.href = `/coin/${id}`;
+          window.open(`/coin/${id}`, '_blank');
+        });
+      }
+      catch (error) {
+        alert("Such coin has no much data and no much trust score");
+      }
+
+      //window.open(`/coin/${id}`, '_blank');
+      //window.location.href = `/coin/${id}`;
+    }
+    //
+    // window.location.href = `/coin/${r}`;
+  }
+
+
   return (
     <>
       <div className='Border'>
@@ -130,7 +163,7 @@ export default function Home() {
                       style={{ minWidth: column.minWidth, color: 'white', fontWeight: 100, backgroundColor: '#005EFF' }}
                       onClick={() => {
                         firebase.SortingData(column.id);
-                        setData1(vt + 1);
+                        setData1(vt);
                         vt++;
                       }}
                     >
@@ -152,7 +185,7 @@ export default function Home() {
                             <TableCell key={column.id} align={column.align} >
                               {column.format && typeof value === 'number' && column.id !== 'Link'
                                 ? column.format(value)
-                                : (column.id === 'Link' ? <a onClick={() => { window.location.href = `/coin/${row.id}` }}>Link to detail</a> : (column.id === 'Buy' ? <Button onClick={() => handleBuy(row.id, row.name, row.current_price, index)}>Buy the crypto</Button> : value))}
+                                : (column.id === 'Link' ? <a onClick={() => handleLink(row.id)}>Link to detail</a> : (column.id === 'Buy' ? <Button onClick={() => handleBuy(row.id, row.name, row.price, index)}>Buy the crypto</Button> : value))}
                             </TableCell>
                           );
                         })},
@@ -163,7 +196,7 @@ export default function Home() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 20, 25]}
+            rowsPerPageOptions={[10, 20, 25, 50, 100]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}

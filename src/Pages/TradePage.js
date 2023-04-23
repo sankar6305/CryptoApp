@@ -38,20 +38,22 @@ const TradePage = () => {
   }
 
   const [rows, setRow] = useState([]);
-  
+
 
   useEffect(() => {
     console.log(firebase.isLoggedIn);
     HandleOutput();
     setRow(firebase.drt);
+    console.log(rows);
     if (crypto.length > 0 && rows.length > 0) {
       for (let i = 0; i < crypto.length; i++) {
         let t = rows.find((element) => {
           return element.id === crypto[i].uid;
-        }).current_price;
+        }).price;
         let t1 = rows.find((element) => {
           return element.id === crypto[i].uid;
-        }).image;
+        }).icon;
+        console.log(crypto[i].uid);
         console.log("Hello Bhageeta " + t);
         console.log("Hello Bhageeta " + t1);
         images.push(t1);

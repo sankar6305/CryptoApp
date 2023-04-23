@@ -35,10 +35,11 @@ export const FirebaseProvider = (props) => {
     const [rows, setRows] = useState([]);
     const count = {
         name: 0,
-        market_cap_rank: 0,
-        current_price: 0,
-        low_24h: 0,
-        high_24h: 0,
+        rank: 0,
+        price: 0,
+        priceChange1h: 0,
+        priceChange1d: 0,
+        priceChange1w: 0,
         market_cap_change_24h: 0,
     }
 
@@ -46,11 +47,12 @@ export const FirebaseProvider = (props) => {
         //setIsLoading(true);
         // int a = 2;
         axios.get(
-            "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=250&page=1&sparkline=false"
+            "https://api.coinstats.app/public/v1/coins?skip=0&limit=2000&currency=INR"
         ).then((response) => {
-            //console.log(response.data);
+            //console.log(response.data.coins);
             //setIsLoading(false);
-            setRows(response.data);
+            setRows(response.data.coins);
+            //console.log(rows);
             //console.log(rows);
         });
     };
