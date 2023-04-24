@@ -117,7 +117,7 @@ const TradePage = () => {
                     <div className='TradeCarsButtons'>
                       <CardActions>
                         <Button onClick={() => {
-                          firebase.RemoveCrypto(item.BuyAt, item.uid).then(() => {
+                          firebase.RemoveCrypto(item.BuyAt, item.index).then(() => {
                             // window.location.reload();
                             setFlag(false);
                             alert(item.name + " Removed");

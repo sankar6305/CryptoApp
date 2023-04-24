@@ -47,7 +47,7 @@ export const FirebaseProvider = (props) => {
         //setIsLoading(true);
         // int a = 2;
         axios.get(
-            "https://api.coinstats.app/public/v1/coins?skip=0&limit=2000&currency=INR"
+            "https://api.coinstats.app/public/v1/coins?skip=0&limit=1000&currency=INR"
         ).then((response) => {
             //console.log(response.data.coins);
             //setIsLoading(false);
@@ -98,7 +98,7 @@ export const FirebaseProvider = (props) => {
                 uid: id,
                 name: name,
                 price: price,
-                BuyAt: new Date().toDateString(),
+                BuyAt: new Date().toString(),
                 user_id: user.uid,
                 user_email: user.email
             });
@@ -117,7 +117,7 @@ export const FirebaseProvider = (props) => {
         //     });
         // });
         // console.log("Deleted");
-        const q = query(collection(firestore, "Trades"), where("user_email", "==", user.email), where("BuyAt", "==", buyingTime), where("uid", "==", cryptoid));
+        const q = query(collection(firestore, "Trades"), where("user_email", "==", user.email), where("BuyAt", "==", buyingTime));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc1) => {
             // doc.data() is never undefined for query doc snapshots
